@@ -9,13 +9,15 @@ import { faQuoteLeft, faQuoteRight } from '@fortawesome/free-solid-svg-icons';
 let quoteDBUrl = "https://gist.githubusercontent.com/camperbot/5a022b72e96c4c9585c32bf6a75f62d9/raw/e3c6895ce42069f0ee7e991229064f167fe8ccdc/quotes.json"
 
 function App() {
-  const [quote, setQuote] = useState("If you want to lift yourself up, lift up someone else.")
-  const [author, setAuthor] = useState("Booker T. Washington")
-  const [randomNumber, setRandomNumber] = useState(0)
-  const [quotesArray, setQuotesArray] = useState(null)
-  const [accentColor, setAccentColor] = useState('#282c34')
 
-  const fetchQuotes = async (url) => {
+
+  const [quote, setQuote] = useState("If you want to lift yourself up, lift up someone else.")
+  const [author, setAuthor] = useState<string>("Booker T. Washington")
+  const [randomNumber, setRandomNumber] = useState<number>(0)
+  const [quotesArray, setQuotesArray] = useState<any>(null)
+  const [accentColor, setAccentColor] = useState<string>('#282c34')
+
+  const fetchQuotes = async (url: string) => {
     const response = await fetch(url)
     const parsedJSON = await response.json()
     setQuotesArray(parsedJSON.quotes)
@@ -27,7 +29,8 @@ function App() {
   }, [quoteDBUrl])
   
   const getRandomQuote = () => {
-    let randomInteger = Math.floor(quotesArray.length*Math.random())
+    let randomInteger: number = Math.floor(quotesArray.length*Math.random())
+
     setRandomNumber(randomInteger)
     setAccentColor(COLORS_ARRAY[randomInteger])
     setQuote(quotesArray[randomInteger].quote)
